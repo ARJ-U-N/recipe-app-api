@@ -19,7 +19,7 @@ app.get("/api/health",(req,res)=>{
     res.status(200).json({success:true});
 })
 
-app.post("/api/favorits", async (req,res)=>{
+app.post("/api/favorites", async (req,res)=>{
 try {
     const {userId,recipyId,title,image,cookTime,servings}=req.body
     if(!userId || !recipyId|| !title|| !image|| !cookTime|| !servings){
@@ -39,7 +39,7 @@ try {
     res.status(500).json({error:"something went wrong"})
 }
 })
-app.delete("/api/favorits/:userId/:recipyId", async (req,res)=>{
+app.delete("/api/favorites/:userId/:recipyId", async (req,res)=>{
 try {
     const {userId,recipyId}=req.params
     await db.delete(favoritesTable).where(
@@ -51,7 +51,7 @@ try {
     res.status(500).json({error:"something went wrong"})
 }
 })
-app.get("/api/favorits/:userId", async(req,res)=>{
+app.get("/api/favorites/:userId", async(req,res)=>{
     try {
         const {userId}=req.params
          const userFavorites= await db.select().from(favoritesTable).where(eq(favoritesTable.userId,userId))
